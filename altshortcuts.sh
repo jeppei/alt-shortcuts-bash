@@ -125,11 +125,11 @@ PrintVariables() {
   printf "$windowsTranslated\n"
   printf "\nCurrent process id: $currentProcessId\n"
   printf "Current process name: $currentProcessName\n"
-  if [ -z "$mathedTranslatedWindows" ]; then
+  if [ -z "$matchedTranslatedWindows" ]; then
     printf "\n<<<No matches on \"$letter\">>>\n";
   else
     printf "\n#### mathedTranslatedWindows\n"
-    printf "$mathedTranslatedWindows\n"
+    printf "$matchedTranslatedWindows\n"
     printf "\n#### matchedIds\n"
     printf "$matchedIds\n"
     printf "\n#### matchedFixedIds\n"
@@ -161,8 +161,8 @@ letter=$1
 path="$( dirname -- "$0"; )/apps.txt"; # Full path to apps.txt
 windows="$(wmctrl -xl | grep -v gjs.Gjs | awk '{ print $3" "$letter}')"  # Not sure what gjs is but this should be in a file with ignores
 windowsTranslated="$(TranslateWindows $windows)"
-mathedTranslatedWindows="$(echo "$windowsTranslated" | grep "^$letter")"
-matchedIds="$(echo "$mathedTranslatedWindows" | awk '{print $2}')"
+matchedTranslatedWindows="$(echo "$windowsTranslated" | grep "^$letter")"
+matchedIds="$(echo "$matchedTranslatedWindows" | awk '{print $2}')"
 matchedFixedIds="$(FixProcessIds)"
 processStack="$(xprop -root | grep "^_NET_CLIENT_LIST_STACKING" | cut -c 48- | tr ", " " ")"
 currentProcessId=${processStack##* }
@@ -171,7 +171,7 @@ source /home/jesper/.profile
 
 PrintVariables
 
-if [ -z "$mathedTranslatedWindows" ]; then # No windows matches letter
+if [ -z "$matchedTranslatedWindows" ]; then # No windows matches letter
   AskUserForSuggestions $1
 
 elif [[ "$matchedFixedIds" == *"$currentProcessId"* ]]; then # Current window matches letter
