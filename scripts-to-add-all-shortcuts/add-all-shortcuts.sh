@@ -8,13 +8,15 @@ altKey="<Alt>"
 # altKey="<Super>"
 dir="$(pwd)"
 parent="$(dirname "$dir")"
-for x in {a..x}
+for letter in {a..x}
 do
     if [[ "$x" != "l" ]]; then # used for locking the screen
-        python3 add-shortcut.py "altshortcut $x" "bash $parent/altshortcuts.sh $x" "$altKey$x"
+        python3 add-shortcut.py "altshortcut $letter" "python3 $parent/alt-shortcuts-python/main.py $letter" "$altKey$letter"
     fi
 done
-python3 add-shortcut.py "altshortcut 1" "bash $parent/altshortcuts.sh 1" $altKey"1"
-python3 add-shortcut.py "Leftclick on §" "xdotool click --delay 5000 --repeat 1 1" "section"
+python3 add-shortcut.py "altshortcut 1" "python3 $parent/alt-shortcuts-python/main.py 1" $altKey"1"
+python3 add-shortcut.py "Left click on §" "xdotool click --delay 5000 --repeat 1 1" "section"
+python3 add-shortcut.py "Right click on shift+§" "xdotool key shift+F10" "<shift>section"
 python3 add-shortcut.py "flameshot" "flameshot gui" "<Ctrl><Alt>s"
 python3 add-shortcut.py "Äxit" "gnome-session-quit --power-off" "<Alt>adiaeresis"
+python3 add-shortcut.py "Minimize window" "xdotool windowminimize $(xdotool getactivewindow)" "<Super>down"

@@ -1,2 +1,3 @@
-apps.txt
+alt-shortcuts-python/apps.csv
 .idea/
+*.pyc
