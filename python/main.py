@@ -22,21 +22,22 @@ class Main:
 
         self.bash.close_windows_with_suggestions()
 
-        print(letter)
+        print(f'Letter: {letter}')
 
-        window_id_stack, active_window_id = self.bash.get_window_stack_and_active_window()
-        print(f'Window stack: {window_id_stack}')
-        print(f'Active window id: {active_window_id}')
-
-        suggestions, translations = App.get_suggestions_and_translations(letter)
+        suggestions, translations, ignored = App.get_suggestions_and_translations(letter)
         self.print_list(suggestions, f'Suggestions')
         self.print_map(translations, "Translations")
+        self.print_list(ignored, "Ignored")
+
+        window_id_stack, active_window_id = self.bash.get_window_stack_and_active_window(ignored, translations)
+        print(f'Window stack: {window_id_stack}')
+        print(f'Active window id: {active_window_id}')
 
         running_windows_on_letter, active_window = self.bash.get_running_windows_on_letter(
             letter,
             translations,
             active_window_id,
-            window_id_stack
+            window_id_stack,
         )
         self.print_list(running_windows_on_letter, "Running windows on letter")
         print(f'Active window: {active_window}')
@@ -49,6 +50,9 @@ class Main:
 
         print(f'\n\n\nRESULT:')
         if no_running_windows_on_letter:
+            if len(suggestions) == 1:
+                suggestions[0].run_app()
+                return
             print(f"Couldn't find a window on letter {letter}")
             self.print_list(suggestions, "Here are some suggestions")
             WindowWithSuggestions(suggestions).run()
@@ -82,7 +86,7 @@ class Main:
 
 def main():
     if len(sys.argv) != 2:
-        print("This script only supports one argument which should be a single character")
+        print("This script only supports one argument which should be a single character. Got " + " ".join(sys.argv))
         return
 
     letter = sys.argv[1]

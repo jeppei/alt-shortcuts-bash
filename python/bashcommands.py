@@ -34,10 +34,14 @@ class BashCommands:
         BashCommands.execute_bash_command(command)
 
     @staticmethod
-    def get_running_windows_on_letter(letter, translations, active_window_id, window_id_stack):
+    def get_running_windows_on_letter(
+        letter,
+        translations,
+        active_window_id,
+        window_id_stack
+    ):
         try:
-            all_windows = BashCommands.get_all_running_windows()
-            all_windows = BashCommands.translate_windows(all_windows, translations)
+            all_windows = BashCommands.get_active_windows_translated(translations)
             active_window = BashCommands.get_active_window(all_windows, active_window_id)
             good_windows = []
             for window_id_in_stack in window_id_stack:
@@ -57,6 +61,12 @@ class BashCommands:
             if window.window_id == active_window_id:
                 return window
         raise Exception(f"Could the active window with id {active_window_id}")
+
+    @staticmethod
+    def get_active_windows_translated(translations):
+        all_windows = BashCommands.get_all_running_windows()
+        all_windows_translated = BashCommands.translate_windows(all_windows, translations)
+        return all_windows_translated
 
     @staticmethod
     def translate_windows(all_windows, translations):
@@ -92,7 +102,7 @@ class BashCommands:
         return windows
 
     @staticmethod
-    def get_window_stack_and_active_window():
+    def get_window_stack_and_active_window(ignored_windows, translations):
         try:
             command = "xprop -root | grep '^_NET_CLIENT_LIST_STACKING' | cut -c 48- | tr ', ' ','"
             output = BashCommands.execute_bash_command(command)
@@ -105,49 +115,20 @@ class BashCommands:
                     window_id = window_id.replace("0x", "0x0")
                 window_ids_fixed.append(window_id)
 
-            return window_ids_fixed, window_ids_fixed[-1]
+            all_windows = BashCommands.get_active_windows_translated(translations)
+            active_window_id = None
+            for i in range(len(window_ids_fixed) - 1, -1, -1):
+                current_window_id = window_ids_fixed[i]
+                current_window = BashCommands.get_active_window(all_windows, current_window_id)
+                if current_window.class_name != 'IGNORE':
+                    active_window_id = window_ids_fixed[i]
+                    break
+
+            if active_window_id is None:
+                print('Could not find an active window after ignoring, will ignore the ignored list')
+                active_window_id = window_ids_fixed[-1]
+
+            return window_ids_fixed, active_window_id
 
         except Exception as e:
             raise Exception(f"Exception occurred: {e}")
-
-    # @staticmethod
-    # def close_window(window):
-    #     print(f"killing processes with name {window}")
-    #     good_processes, _ = Bash_commands.get_running_windows()
-    #     zenity_processes = [process for process in good_processes if window in process.pid]
-    #     for process in zenity_processes:
-    #         print(f'Killing process with id {process}')
-    #         try:
-    #             command = ["wmctrl", "-i", "-c", process.window_id]
-    #             subprocess.run(command, check=True)
-    #         except subprocess.CalledProcessError as e:
-    #             raise Exception(f"Error: {e}")
-
-    # @staticmethod
-    # def filter_window_ids_by_name(name):
-    #     try:
-    #         command = ["wmctrl", "-lix"]
-    #         process = subprocess.Popen(command, stdout=subprocess.PIPE)
-    #         grep_process = subprocess.Popen(["grep", name], stdin=process.stdout, stdout=subprocess.PIPE)
-    #         process.stdout.close()
-    #         output, _ = grep_process.communicate()
-    #
-    #         if grep_process.returncode == 0:
-    #             return output.decode()
-    #         else:
-    #             raise Exception("Error in grep command")
-    #     except Exception as e:
-    #         raise Exception(f"Exception occurred: {e}")
-    # @staticmethod
-    # def extract_window_ids(output):
-    #     try:
-    #         if output:
-    #             lines = output.splitlines()
-    #             window_ids = [line.split()[0] for line in lines]
-    #             return window_ids
-    #         else:
-    #             return []
-    #     except Exception as e:
-    #         raise Exception(f"Exception occurred: {e}")
-    #
-

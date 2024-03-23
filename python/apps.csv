@@ -1,0 +1,24 @@
+#window name (check wmctrl -lx)             translation           how to launch                    ignore; ask before launch
+
+1password.1Password;                        1password;            1password;                       0;      0
+AWS;                                        aws-vpn-client;       ~/awsvpnclient;                  0;      0
+bitwarden.Bitwarden;                        bitwarden;            bitwarden;                       0;      0
+brave-browser.Brave-browser;                brave;                brave-browser;                   0;      0
+google-chrome.Google-chrome;                chrome;               google-chrome;                   0;      0
+;                                           display-settings;     gnome-control-center display;    0;      0
+org.gnome.Nautilus.Org.gnome.Nautilus;      nautilus;             nautilus;                        0;      0
+Navigator.firefox;                          firefox;              firefox;                         0;      0
+sublime_merge.Sublime_merge;                git-sublime-merge;    smerge;                          0;      0
+insomnia.Insomnia;                          insomnia;             insomnia;                        0;      0
+marktext.marktext;                          marktext;             marktext;                        0;      0
+peek.Peek;                                  peek;                 peek;                            0;      0
+slack.Slack;                                slack;                slack;                           0;      0
+sublime_text.Sublime_text;                  sublime;              subl;                            0;      0
+gnome-terminal-server.Gnome-terminal;       terminal;             gnome-terminal;                  0;      0
+code.Code;                                  visual-studio-code;   code;                            0;      0
+jetbrains-idea.jetbrains-idea;              q-intellij;           idea;                            0;      0
+jetbrains-pycharm.jetbrains-pycharm;        q-pycharm;            pycharm;                         0;      0
+
+# Ignore these windows
+gjs.Gjs;                                    IGNORE;0;1;1
+flameshot.flameshot;                        IGNORE;0;1;1

@@ -9,7 +9,7 @@ display-settings                #                                           #1  
 explorer                        #org.gnome.Nautilus.Org.gnome.Nautilus      #1   #nautilus
 firefox                         #Navigator.firefox                          #1   #firefox
 git-sublime-merge               #sublime_merge.Sublime_merge                #1   #smerge
-insomnia                        #insomnia.Insomnia                          #1   #insomnia
+h-insomnia                      #insomnia.Insomnia                          #1   #insomnia
 marktext                        #marktext.marktext                          #1   #marktext
 peek                            #peek.Peek                                  #1   #peek
 slack                           #slack.Slack                                #1   #slack
