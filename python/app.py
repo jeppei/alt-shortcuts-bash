@@ -33,7 +33,7 @@ class App:
     @staticmethod
     def get_suggestions_and_translations(letter):
         script_dir = os.path.dirname(os.path.realpath(__file__))
-        file_path = os.path.join(script_dir, 'apps.csv')
+        file_path = os.path.join(script_dir, '../apps.csv')
         suggestions = []
         translations = {}
         ignored = []

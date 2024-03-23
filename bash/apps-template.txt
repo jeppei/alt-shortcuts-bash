@@ -1,9 +1,0 @@
-###Friendlyname and identifier  #actual process (check wmctrl -lx)          #ask before launch  #how to launch
-
-chrome                          #google-chrome.Google-chrome                #0   #google-chrome
-explorer                        #org.gnome.Nautilus.Org.gnome.Nautilus      #0   #nautilus
-firefox                         #Navigator.firefox                          #0   #firefox
-sublime-merge                   #sublime_merge.Sublime_merge                #0   #smerge
-terminal                        #gnome-terminal-server.Gnome-terminal       #0   #gnome-terminal
-
-#### An emtpy line after this list is needed
