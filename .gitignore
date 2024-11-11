@@ -1,3 +1,5 @@
 ../alt-shortcuts-python/apps.csv
 .idea/
 *.pyc
+
+python/venv/*
