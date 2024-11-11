@@ -51,7 +51,7 @@ for letter_index in range(ord('a'), ord('z')+1):
     letter = chr(letter_index)
     add_shortcut(
         f"altshortcut {letter}",
-        f"python3 {parent}/../python/main.py {letter}",
+        f'bash -c "source {parent}/venv/bin/activate; python3 {parent}/main.py {letter}"',
         f"{altKey}{letter}"
     )
 
