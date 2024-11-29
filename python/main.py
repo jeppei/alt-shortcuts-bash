@@ -55,12 +55,12 @@ class Main:
                 return
             print(f"Couldn't find a window on letter {letter}")
             self.print_list(suggestions, "Here are some suggestions")
-            WindowWithSuggestions(suggestions).run()
+            #WindowWithSuggestions(suggestions).run()
 
         elif current_window_is_the_only_one_on_letter:
             print(f"Current window is the only on letter {letter}")
             self.print_list(suggestions, "Here are some suggestions")
-            WindowWithSuggestions(suggestions).run()
+            #WindowWithSuggestions(suggestions).run()
 
         elif active_window.class_name.startswith(letter):
             print(f"Current window starts on {letter}. Will activate the oldest window on letter {letter}")
